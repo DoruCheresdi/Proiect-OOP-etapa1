@@ -39,4 +39,13 @@ public enum Cities {
     Cities(final String value) {
         this.value = value;
     }
+
+    public static Cities cityOfValue(String value) {
+        for (Cities e : values()) {
+            if (e.value.equals(value)) {
+                return e;
+            }
+        }
+        return null;
+    }
 }

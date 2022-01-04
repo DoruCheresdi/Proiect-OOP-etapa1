@@ -28,4 +28,12 @@ public enum Category {
         this.value = value;
     }
 
+    public static Category categoryOfValue(String value) {
+        for (Category e : values()) {
+            if (e.value.equals(value)) {
+                return e;
+            }
+        }
+        return null;
+    }
 }
