@@ -24,6 +24,11 @@ public final class SimulationConstants {
     public static final String NEW_CHILDREN = "newChildren";
     public static final String CHILDREN_UPDATES = "childrenUpdates";
     public static final String NICE_SCORE = "niceScore";
+    public static final String ANNUAL_CHILDREN = "annualChildren";
+    public static final String AVERAGE_SCORE = "averageScore";
+    public static final String NICE_SCORE_HISTORY = "niceScoreHistory";
+    public static final String ASSIGNED_BUDGET = "assignedBudget";
+    public static final String RECEIVED_GIFTS = "receivedGifts";
 
     private SimulationConstants() {
         //constructor for checkstyle

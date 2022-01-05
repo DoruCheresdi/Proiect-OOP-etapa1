@@ -19,4 +19,68 @@ public class AnnualChange {
         this.newChildren = newChildren;
         this.childrenUpdates = childrenUpdates;
     }
+
+    /**
+     * getter
+     * @return
+     */
+    public Double getNewSantaBudget() {
+        return newSantaBudget;
+    }
+
+    /**
+     * setter
+     * @param newSantaBudget
+     */
+    public void setNewSantaBudget(final Double newSantaBudget) {
+        this.newSantaBudget = newSantaBudget;
+    }
+
+    /**
+     * getter
+     * @return
+     */
+    public List<Gift> getNewGifts() {
+        return newGifts;
+    }
+
+    /**
+     * setter
+     * @param newGifts
+     */
+    public void setNewGifts(final List<Gift> newGifts) {
+        this.newGifts = newGifts;
+    }
+
+    /**
+     * getter
+     * @return
+     */
+    public List<Child> getNewChildren() {
+        return newChildren;
+    }
+
+    /**
+     * setter
+     * @param newChildren
+     */
+    public void setNewChildren(final List<Child> newChildren) {
+        this.newChildren = newChildren;
+    }
+
+    /**
+     * getter
+     * @return
+     */
+    public List<ChildrenUpdate> getChildrenUpdates() {
+        return childrenUpdates;
+    }
+
+    /**
+     * setter
+     * @param childrenUpdates
+     */
+    public void setChildrenUpdates(final List<ChildrenUpdate> childrenUpdates) {
+        this.childrenUpdates = childrenUpdates;
+    }
 }

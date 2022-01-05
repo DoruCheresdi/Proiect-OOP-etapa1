@@ -48,4 +48,12 @@ public enum Cities {
         }
         return null;
     }
+
+    /**
+     * getter
+     * @return
+     */
+    public String getValue() {
+        return value;
+    }
 }

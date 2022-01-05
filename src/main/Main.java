@@ -1,10 +1,12 @@
 package main;
 
 import checker.Checker;
+import children.Child;
 import common.Constants;
 import common.SimulationConstants;
 import data.SimulationData;
 import fileio.InputReader;
+import fileio.Writer;
 import simulation.Simulation;
 
 import java.io.File;
@@ -25,11 +27,12 @@ public final class Main {
 
     /**
      * Method to read, solve and write data for one test
-     * @param inputFile
-     * @param outputFile
+     * @param inputFileAbsolutPath
+     * @param outputFileString
      * @throws IOException
      */
-    public static void solveOneTest(final File inputFile, final File outputFile)
+    public static void solveOneTest(final String inputFileAbsolutPath,
+                                    final String outputFileString)
             throws IOException {
         // empty the database:
         SimulationData simulationData = SimulationData.getInstance();
@@ -37,14 +40,18 @@ public final class Main {
         simulationData = SimulationData.getInstance();
 
         // load test data into database:
-        InputReader inputReader = new InputReader(inputFile.getAbsolutePath());
+        InputReader inputReader = new InputReader(inputFileAbsolutPath);
         inputReader.readData();
 
-        // TODO start simulation:
+        // start simulation:
+        Writer writer = new Writer(outputFileString);
+        Simulation simulation = new Simulation(writer);
+        simulation.simulate();
+
 
 
         // TODO write simulation result JSON to output file:
-
+        writer.writeToFile();
     }
 
     /**
@@ -66,17 +73,21 @@ public final class Main {
         }
 
         // solve each test:
-        File inputDir = new File(SimulationConstants.INPUT_DIR_PATH);
-        for (File inputFile : Objects.requireNonNull(inputDir.listFiles())) {
+        for (int testNumber = 1; testNumber <= 25; testNumber++) {
             String outputPathString = Constants.OUTPUT_PATH
-                    + inputFile.getName();
+                    + testNumber + Constants.FILE_EXTENSION;
             File outputFile = new File(outputPathString);
+
+            String inputPathString = SimulationConstants.INPUT_PATH
+                    + testNumber + Constants.FILE_EXTENSION;
+            File inputFile = new File(inputPathString);
+
             boolean hasBeenCreated = outputFile.createNewFile();
             if (hasBeenCreated) {
-                solveOneTest(inputFile, outputFile);
-//                System.out.println(inputFile.getName() + " " + outputFile.getName());
+                solveOneTest(inputFile.getAbsolutePath(), outputPathString);
             }
         }
+
     }
 
     /**
