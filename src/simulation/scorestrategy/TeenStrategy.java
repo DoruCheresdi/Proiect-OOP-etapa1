@@ -5,8 +5,12 @@ import children.Child;
 import java.util.List;
 
 public class TeenStrategy implements NiceScoreStrategy {
+    /**
+     * Method to calculate average nice Score for teen
+     * @param child
+     */
     @Override
-    public void calculateScore(Child child) {
+    public void calculateScore(final Child child) {
         List<Double> scoreHistory = child.getNiceScoreHistory();
 
         // calculate average:

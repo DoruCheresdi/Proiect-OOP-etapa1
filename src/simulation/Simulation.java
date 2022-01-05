@@ -1,18 +1,17 @@
 package simulation;
 
 import children.Child;
+import common.SimulationConstants;
 import data.SimulationData;
 import fileio.Writer;
-import org.json.simple.JSONArray;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
     private Writer writer;
 
-    public Simulation(Writer writer) {
+    public Simulation(final Writer writer) {
         this.writer = writer;
     }
 
@@ -20,7 +19,7 @@ public class Simulation {
      * Function that simulates the gift giving to children and creates the
      * output JSON
      */
-    public void simulate() throws IOException {
+    public void simulate() {
         SimulationData simulationData = SimulationData.getInstance();
         int numberOfYears = simulationData.getNumberOfYears();
         for (int year = 0; year <= numberOfYears; year++) {
@@ -43,27 +42,20 @@ public class Simulation {
             GiftGiver giftGiver = new GiftGiver();
             giftGiver.giveGiftsToChildren();
 
-            // add children list to output json
-            JSONArray yearlyChildrenJSON = new JSONArray();
-            for (Child child :
-                    simulationData.getChildren()) {
-                yearlyChildrenJSON.add(writer.addChildToJson(child));
-            }
-            writer.addChildrenJsonToOutput(yearlyChildrenJSON);
+            // add children list to output JSON
+            writer.addChildrenJsonToOutput(simulationData.getChildren());
         }
     }
 
     private void removeAdults() {
         SimulationData simulationData = SimulationData.getInstance();
         List<Child> childrenToRemove = new ArrayList<>();
-        for (Child child :
-                simulationData.getChildren()) {
+        for (Child child : simulationData.getChildren()) {
             Integer age = child.getAge();
-            if (age > 18) {
+            if (age > SimulationConstants.LAST_AGE_CHILDREN) {
                 childrenToRemove.add(child);
             }
         }
         simulationData.getChildren().removeAll(childrenToRemove);
     }
-
 }

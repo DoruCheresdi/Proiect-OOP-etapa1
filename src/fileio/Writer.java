@@ -6,11 +6,11 @@ import enums.Category;
 import gifts.Gift;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import simulation.Simulation;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Writer {
     private FileWriter fileWriter;
@@ -26,7 +26,7 @@ public class Writer {
      * @param child
      * @return
      */
-    public JSONObject addChildToJson(Child child) {
+    public JSONObject addChildToJson(final Child child) {
         JSONObject childJson = new JSONObject();
         childJson.put(SimulationConstants.ID, child.getId());
         childJson.put(SimulationConstants.LAST_NAME, child.getLastName());
@@ -35,19 +35,19 @@ public class Writer {
         childJson.put(SimulationConstants.AGE, child.getAge());
 
         ArrayList<String> preferencesString = new ArrayList<>();
-        for (Category preference :
-                child.getPreferences()) {
+        for (Category preference : child.getPreferences()) {
             preferencesString.add(preference.getValue());
         }
         childJson.put(SimulationConstants.GIFT_PREFERENCES, preferencesString);
 
         childJson.put(SimulationConstants.AVERAGE_SCORE, child.getAverageScore());
-        childJson.put(SimulationConstants.NICE_SCORE_HISTORY, child.getNiceScoreHistory());
+        // make copy so that the next years don't modify previous JSONs:
+        List<Double> newNiceScoreHistory = new ArrayList<>(child.getNiceScoreHistory());
+        childJson.put(SimulationConstants.NICE_SCORE_HISTORY, newNiceScoreHistory);
         childJson.put(SimulationConstants.ASSIGNED_BUDGET, child.getAssignedBudget());
 
         JSONArray receivedGiftsJsonArray = new JSONArray();
-        for (Gift gift :
-                child.getReceivedGifts()) {
+        for (Gift gift : child.getReceivedGifts()) {
             JSONObject receivedGiftJson = new JSONObject();
             receivedGiftJson.put(SimulationConstants.PRODUCT_NAME, gift.getProductName());
             receivedGiftJson.put(SimulationConstants.PRICE, gift.getPrice());
@@ -61,9 +61,19 @@ public class Writer {
         return childJson;
     }
 
-    public void addChildrenJsonToOutput(final JSONArray childrenJsonArray) {
+    /**
+     * Method to add the current year's children to
+     * the output children JSON array
+     * @param childrenList
+     */
+    public void addChildrenJsonToOutput(final List<Child> childrenList) {
+        JSONArray yearlyChildrenJSON = new JSONArray();
+        for (Child child : childrenList) {
+            yearlyChildrenJSON.add(addChildToJson(child));
+        }
+
         JSONObject jsonChildrenWrapper = new JSONObject();
-        jsonChildrenWrapper.put(SimulationConstants.CHILDREN, childrenJsonArray);
+        jsonChildrenWrapper.put(SimulationConstants.CHILDREN, yearlyChildrenJSON);
         jsonOutputArray.add(jsonChildrenWrapper);
     }
 
@@ -74,6 +84,7 @@ public class Writer {
         // adding the children JSON array to output JSON:
         jsonOutputObject = new JSONObject();
         jsonOutputObject.put(SimulationConstants.ANNUAL_CHILDREN, jsonOutputArray);
+        // outputting final JSON output object to file:
         try {
             fileWriter.write(jsonOutputObject.toJSONString());
             fileWriter.flush();

@@ -1,7 +1,7 @@
 package children;
 
+import common.SimulationConstants;
 import enums.Category;
-import enums.ChildType;
 import enums.ChildType;
 import enums.Cities;
 import gifts.Gift;
@@ -23,7 +23,7 @@ public class Child {
 
     public Child(final Integer id, final Integer age, final String lastName,
                  final String firstName, final Cities city,
-                 final Double niceScore, List<Category> preferences) {
+                 final Double niceScore, final List<Category> preferences) {
         this.id = id;
         this.age = age;
         this.lastName = lastName;
@@ -39,10 +39,10 @@ public class Child {
      * @return
      */
     public ChildType determineType() {
-        if (age < 5) {
+        if (age < SimulationConstants.BEGGINING_AGE_KID) {
             return ChildType.BABY;
         }
-        if (age >= 12) {
+        if (age >= SimulationConstants.BEGGINING_AGE_TEEN) {
             return ChildType.TEEN;
         }
         return ChildType.KID;
@@ -53,7 +53,7 @@ public class Child {
      * @return
      */
     public boolean isAdult() {
-        return age > 18;
+        return age > SimulationConstants.LAST_AGE_CHILDREN;
     }
 
     /**
@@ -61,7 +61,7 @@ public class Child {
      * @param preference
      * @return
      */
-    public boolean hasPreference(Category preference) {
+    public boolean hasPreference(final Category preference) {
         return preferences.contains(preference);
     }
 

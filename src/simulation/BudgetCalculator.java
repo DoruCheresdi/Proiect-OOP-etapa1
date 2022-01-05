@@ -8,6 +8,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class BudgetCalculator {
+    /**
+     * Method that calculates each child's assigned budget
+     */
     public void calculateBudget() {
         SimulationData simulationData = SimulationData.getInstance();
         // calculate total sum of average niceScores:
@@ -17,8 +20,7 @@ public class BudgetCalculator {
         List<Child> orderedList = new ArrayList<>(childList);
         orderedList.sort(Comparator.comparingInt(Child::getId));
 
-        for (Child child :
-                orderedList) {
+        for (Child child : orderedList) {
             niceScoresSum += child.getAverageScore();
         }
 
@@ -27,8 +29,7 @@ public class BudgetCalculator {
         Double budgetUnit = santaBudget / niceScoresSum;
 
         // calculate the assigned budget for each child:
-        for (Child child :
-                simulationData.getChildren()) {
+        for (Child child : simulationData.getChildren()) {
             Double niceScoreChild = child.getAverageScore();
             child.setAssignedBudget(budgetUnit * niceScoreChild);
         }

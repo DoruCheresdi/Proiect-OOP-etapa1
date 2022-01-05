@@ -1,7 +1,6 @@
 package main;
 
 import checker.Checker;
-import children.Child;
 import common.Constants;
 import common.SimulationConstants;
 import data.SimulationData;
@@ -48,9 +47,7 @@ public final class Main {
         Simulation simulation = new Simulation(writer);
         simulation.simulate();
 
-
-
-        // TODO write simulation result JSON to output file:
+        // write simulation result JSON to output file:
         writer.writeToFile();
     }
 
@@ -73,7 +70,7 @@ public final class Main {
         }
 
         // solve each test:
-        for (int testNumber = 1; testNumber <= 25; testNumber++) {
+        for (int testNumber = 1; testNumber <= Constants.TESTS_NUMBER; testNumber++) {
             String outputPathString = Constants.OUTPUT_PATH
                     + testNumber + Constants.FILE_EXTENSION;
             File outputFile = new File(outputPathString);
@@ -87,7 +84,6 @@ public final class Main {
                 solveOneTest(inputFile.getAbsolutePath(), outputPathString);
             }
         }
-
     }
 
     /**

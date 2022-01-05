@@ -2,7 +2,6 @@ package common;
 
 public final class SimulationConstants {
     public static final String OUTPUT_DIR_PATH = "output";
-    public static final String INPUT_DIR_PATH = "tests";
     public static final String INPUT_PATH = "tests/test";
     public static final String NUMBER_OF_YEARS = "numberOfYears";
     public static final String SANTA_BUDGET = "santaBudget";
@@ -29,6 +28,10 @@ public final class SimulationConstants {
     public static final String NICE_SCORE_HISTORY = "niceScoreHistory";
     public static final String ASSIGNED_BUDGET = "assignedBudget";
     public static final String RECEIVED_GIFTS = "receivedGifts";
+    public static final int LAST_AGE_CHILDREN = 18;
+    public static final int BEGGINING_AGE_KID = 5;
+    public static final int BEGGINING_AGE_TEEN = 12;
+    public static final Double BABY_SCORE = 10d;
 
     private SimulationConstants() {
         //constructor for checkstyle

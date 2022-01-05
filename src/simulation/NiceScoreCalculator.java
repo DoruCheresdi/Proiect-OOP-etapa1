@@ -6,10 +6,6 @@ import enums.ChildType;
 import simulation.scorestrategy.NiceScoreStrategy;
 import simulation.scorestrategy.NiceScoreStrategyFactory;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
 public class NiceScoreCalculator {
     /**
      * Method to calculate average niceScore for all children

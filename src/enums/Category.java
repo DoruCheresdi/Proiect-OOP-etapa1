@@ -28,7 +28,12 @@ public enum Category {
         this.value = value;
     }
 
-    public static Category categoryOfValue(String value) {
+    /**
+     * returns the Category entity with the given value string
+     * @param value
+     * @return
+     */
+    public static Category categoryOfValue(final String value) {
         for (Category e : values()) {
             if (e.value.equals(value)) {
                 return e;

@@ -1,6 +1,7 @@
 package simulation;
 
 import children.Child;
+import common.SimulationConstants;
 import data.SimulationData;
 import data.update.AnnualChange;
 import data.update.ChildrenUpdate;
@@ -16,18 +17,17 @@ public class SimulationUpdater {
      * @param year
      */
     public void updateSimulation(final int year) {
-        // add new data to database
-        // index in the annualChangesList:
+        // add new data to database:
+        // the index in the annualChangesList:
         int index = year - 1;
 
         SimulationData simulationData = SimulationData.getInstance();
 
         // update ages for children and remove adults:
         List<Child> childrenToRemove = new ArrayList<>();
-        for (Child child :
-                simulationData.getChildren()) {
+        for (Child child : simulationData.getChildren()) {
             Integer age = child.getAge();
-            if (age == 18) {
+            if (age == SimulationConstants.LAST_AGE_CHILDREN) {
                 childrenToRemove.add(child);
             } else {
                 child.setAge(age + 1);
@@ -38,8 +38,7 @@ public class SimulationUpdater {
         AnnualChange annualChange = simulationData.getAnnualChangeList().get(index);
 
         // add new children
-        for (Child newChild :
-                annualChange.getNewChildren()) {
+        for (Child newChild : annualChange.getNewChildren()) {
             if (!newChild.isAdult()) {
                 simulationData.getChildren().add(newChild);
             }
@@ -49,8 +48,7 @@ public class SimulationUpdater {
         updateChildren(annualChange.getChildrenUpdates());
 
         // add new gifts:
-        for (Gift newGift :
-                annualChange.getNewGifts()) {
+        for (Gift newGift : annualChange.getNewGifts()) {
             simulationData.getSanta().getSantaGiftsList().add(newGift);
         }
 
@@ -60,12 +58,10 @@ public class SimulationUpdater {
 
     }
 
-    private void updateChildren(List<ChildrenUpdate> childrenUpdateList) {
+    private void updateChildren(final List<ChildrenUpdate> childrenUpdateList) {
         SimulationData simulationData = SimulationData.getInstance();
-        List<Child> childList = simulationData.getChildren();
 
-        for (ChildrenUpdate childrenUpdate :
-                childrenUpdateList) {
+        for (ChildrenUpdate childrenUpdate : childrenUpdateList) {
             Integer id = childrenUpdate.getId();
             Child childToUpdate = findChildById(id);
             if (childToUpdate != null) {
@@ -77,7 +73,7 @@ public class SimulationUpdater {
                             .add(newNiceScore);
                 }
 
-                // make each element in the update list unique:
+                // make each preference element in the update list unique:
                 ArrayList<Integer> elementsToRemove = new ArrayList<Integer>();
                 List<Category> prefUpdate = childrenUpdate.getGiftPreferences();
                 for (int i = prefUpdate.size() - 1; i > 0; i--) {
@@ -88,16 +84,14 @@ public class SimulationUpdater {
                         }
                     }
                 }
-
                 // remove duplicates:
                 for (int i = 0; i < elementsToRemove.size(); i++) {
-                    childrenUpdate.getGiftPreferences().remove((int)elementsToRemove.get(i));
+                    childrenUpdate.getGiftPreferences().remove((int) elementsToRemove.get(i));
                 }
 
                 // add new preferences:
                 int indexOfLastPreference = 0;
-                for (Category category :
-                        childrenUpdate.getGiftPreferences()) {
+                for (Category category : childrenUpdate.getGiftPreferences()) {
                     if (childToUpdate.hasPreference(category)) {
                         childToUpdate.getPreferences().remove(category);
                     }
@@ -112,8 +106,7 @@ public class SimulationUpdater {
     private Child findChildById(final Integer id) {
         SimulationData simulationData = SimulationData.getInstance();
         List<Child> childList = simulationData.getChildren();
-        for (Child child :
-                childList) {
+        for (Child child : childList) {
             if (child.getId() == id) {
                 return child;
             }

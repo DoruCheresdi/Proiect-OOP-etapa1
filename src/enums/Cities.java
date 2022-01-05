@@ -40,7 +40,12 @@ public enum Cities {
         this.value = value;
     }
 
-    public static Cities cityOfValue(String value) {
+    /**
+     * returns the Cities entity with the given value string
+     * @param value
+     * @return
+     */
+    public static Cities cityOfValue(final String value) {
         for (Cities e : values()) {
             if (e.value.equals(value)) {
                 return e;
