@@ -59,8 +59,6 @@ public class SimulationUpdater {
     }
 
     private void updateChildren(final List<ChildrenUpdate> childrenUpdateList) {
-        SimulationData simulationData = SimulationData.getInstance();
-
         for (ChildrenUpdate childrenUpdate : childrenUpdateList) {
             Integer id = childrenUpdate.getId();
             Child childToUpdate = findChildById(id);
@@ -107,7 +105,7 @@ public class SimulationUpdater {
         SimulationData simulationData = SimulationData.getInstance();
         List<Child> childList = simulationData.getChildren();
         for (Child child : childList) {
-            if (child.getId() == id) {
+            if (child.getId().equals(id)) {
                 return child;
             }
         }

@@ -1,4 +1,2 @@
 Starting audit...
-[ERROR] C:\Users\Doru\Documents\OOP\proiect1\.\src\simulation\Simulation.java:8:8: Unused import - java.io.IOException. [UnusedImports]
 Audit done.
-Checkstyle ends with 1 errors.

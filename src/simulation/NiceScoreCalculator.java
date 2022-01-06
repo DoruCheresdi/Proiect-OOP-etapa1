@@ -22,8 +22,7 @@ public class NiceScoreCalculator {
             NiceScoreStrategy niceScoreStrategy =
                     niceScoreStrategyFactory.getNiceScoreStrategy(childType);
 
-
-            // use strategy using strategy pattern
+            // use strategy using Strategy Pattern
             niceScoreStrategy.calculateScore(child);
         }
     }

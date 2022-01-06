@@ -1,1 +1,33 @@
-Work in progress...
+Doru Cheresdi
+doru.cheresdi@gmail.com
+
+Programare Orientata pe Obiecte
+Proiect - Etapa 1 - Santa Claus is coming to ACS students
+
+
+# About the flow of the program
+The program runs all tests using the solveAllTests() method, and then each test
+with the solveOneTest() method. For each test, a unique database is initialized
+using the Singleton Pattern. Data is read into the database from the test
+input file using the java org.json library.
+
+The data input is adapted from the example given in Tema1 project skeleton at
+https://github.com/oop-pub/oop-asignments/tree/master/teme/tema .
+
+For each test, the simulation iterates over each year. For the first year, the
+data is checked as to not contain adults in the children list, removing them.
+For every other year, the new data is added to the database using the
+SimulationUpdater class.
+
+When introducing the new gift preferences for each child, care is taken so that
+the elements in the new preferences list are not duplicated. I have chosen to
+use ArrayList for this data structure and not a LinkedHashSet because of the
+need to introduce elements at specific indexes in the list.
+
+For each year, the average nice score for each child is calculated using the
+NiceScoreCalculator class. Each child is given a Strategy for determining
+the average score based on their age, and this strategy is created using
+a Factory class. Then the budget is assigned using the BudgetCalculator class.
+
+Assigning gifts to children is done using the GiftGiver class, which implements
+the logic given in the requirements.

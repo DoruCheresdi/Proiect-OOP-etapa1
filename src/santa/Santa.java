@@ -2,17 +2,11 @@ package santa;
 
 import gifts.Gift;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Santa {
     private Double santaBudget;
     private List<Gift> santaGiftsList;
-
-    public Santa(final Double santaBudget) {
-        this.santaBudget = santaBudget;
-        this.santaGiftsList = new ArrayList<>();
-    }
 
     public Santa(final Double santaBudget, final List<Gift> santaGiftsList) {
         this.santaBudget = santaBudget;

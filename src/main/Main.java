@@ -36,7 +36,6 @@ public final class Main {
         // empty the database:
         SimulationData simulationData = SimulationData.getInstance();
         simulationData.emptyData();
-        simulationData = SimulationData.getInstance();
 
         // load test data into database:
         InputReader inputReader = new InputReader(inputFileAbsolutPath);
